@@ -50,6 +50,9 @@ public class WelcomePageTest {
         Thread.sleep(3000);
         countriesDropdown.selectByValue("UK");
 
+        driver.findElement(By.cssSelector("[value='Register']")).click();
+        driver.findElement(By.cssSelector("input[value='Register']")).click();
+
 
 
 
