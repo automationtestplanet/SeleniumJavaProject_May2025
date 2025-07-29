@@ -82,13 +82,13 @@ public class OpenMrsTest {
 
                     String givenName = driver.findElement(By.xpath("//em[text()='Given']//preceding-sibling::span")).getText();
                     String familyName = driver.findElement(By.xpath("//em[text()='Family Name']//preceding-sibling::span")).getText();
-                    if(givenName.contains("Test") && familyName.contains("User")){
+                    if (givenName.contains("Test") && familyName.contains("User")) {
                         String patientId = driver.findElement(By.xpath("//em[text()='Patient ID']//following-sibling::span")).getText().trim();
                         System.out.println(patientId);
-                    }else{
+                    } else {
                         System.out.println("Register patient failed");
                     }
-                }else{
+                } else {
                     System.out.println("Registered details showing as wrong");
                     driver.findElement(By.id("cancelSubmission")).click();
                 }
