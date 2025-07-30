@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class OpenMrsTestNew {
     public static WebDriver driver;
+
     public static void launchApplication(String url) {
         driver.get(url);
         driver.manage().window().maximize();
@@ -121,23 +122,17 @@ public class OpenMrsTestNew {
             if (verifyModulePage("Register a patient")) {
                 setName("Test, User");
                 clickNextButton();
-
                 selectGender("Male");
                 clickNextButton();
-
                 setDateOfBirth("01, January, 1990");
                 clickNextButton();
-
                 setAddress("New Icici Bank, S R Nagar, Hyderabad, Telangana, India, 500038");
                 clickNextButton();
-
                 setPhoneNumber("9876543210");
                 clickNextButton();
-
                 setRelatives("Parent", "Test User Parent");
                 clickNextButton();
                 Thread.sleep(3000);
-
                 if (verifyEnteredDetails("Test, User", "Male", "01, January, 1990", "9876543210")) {
                     clickConfirmButton();
                     Thread.sleep(3000);
