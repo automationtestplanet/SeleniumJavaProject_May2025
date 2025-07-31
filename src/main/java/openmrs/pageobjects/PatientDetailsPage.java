@@ -2,6 +2,13 @@ package openmrs.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.*;
+
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 public class PatientDetailsPage extends BasePage {
 
@@ -9,14 +16,41 @@ public class PatientDetailsPage extends BasePage {
         super(driver);
     }
 
-    public boolean verifyPatientDetails(String name) {
-        String[] nameArr = name.split(",");
-        String givenName = driver.findElement(By.xpath("//em[text()='Given']//preceding-sibling::span")).getText();
-        String familyName = driver.findElement(By.xpath("//em[text()='Family Name']//preceding-sibling::span")).getText();
-        return givenName.contains(nameArr[0].trim()) && familyName.contains(nameArr[1].trim());
+    @FindBy(xpath = "//em[text()='Given']//preceding-sibling::span")
+    WebElement givenNameEle;
+
+    @FindBy(xpath = "//em[text()='Family Name']//preceding-sibling::span")
+    WebElement familyNameEle;
+
+    @FindBy(xpath = "//em[text()='Patient ID']//following-sibling::span")
+    WebElement patientIdEle;
+
+    public WebElement getGivenNameEle() {
+        return givenNameEle;
+    }
+
+    public WebElement getFamilyNameEle() {
+        return familyNameEle;
+    }
+
+    public WebElement getPatientIdEle() {
+        return patientIdEle;
+    }
+
+    public String getGivenName() {
+        return waitForElementToBeVisible(getGivenNameEle()).getText().trim();
+    }
+
+    public String getFamilyName() {
+        return waitForElementToBeVisible(getFamilyNameEle()).getText().trim();
     }
 
     public String getPatientId() {
-        return driver.findElement(By.xpath("//em[text()='Patient ID']//following-sibling::span")).getText().trim();
+        return waitForElementToBeVisible(getPatientIdEle()).getText().trim();
+    }
+
+    public boolean verifyPatientDetails(String name) {
+        String[] nameArr = name.split(",");
+        return getGivenName().contains(nameArr[0].trim()) && getFamilyName().contains(nameArr[1].trim());
     }
 }

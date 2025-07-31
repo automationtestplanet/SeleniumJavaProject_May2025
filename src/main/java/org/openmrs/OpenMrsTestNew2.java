@@ -25,7 +25,6 @@ public class OpenMrsTestNew2 {
                         registrationPage.enterPatientDetails("Test, User", "Male", "01, January, 1990", "New Icici Bank, S R Nagar, Hyderabad, Telangana, India, 500038", "9876543210", "Parent,Test User Parent");
                         if (registrationPage.verifyEnteredDetails("Test, User", "Male", "01, January, 1990", "9876543210")) {
                             registrationPage.clickConfirmButton();
-                            Thread.sleep(5000);
                             if (patientDetailsPage.verifyPatientDetails("Test, User")) {
                                 String patientId = patientDetailsPage.getPatientId();
                                 System.out.println(patientId);
