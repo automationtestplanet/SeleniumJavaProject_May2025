@@ -53,11 +53,6 @@ public class WelcomePageTest {
         driver.findElement(By.cssSelector("[value='Register']")).click();
         driver.findElement(By.cssSelector("input[value='Register']")).click();
 
-
-
-
-
-
     }
 
 }

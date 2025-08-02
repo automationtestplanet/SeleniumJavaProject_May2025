@@ -13,6 +13,9 @@ public class OpenMrsTestNew2 {
         HomePage homePage = new HomePage(driver);
         RegistrationPage registrationPage = new RegistrationPage(driver);
         PatientDetailsPage patientDetailsPage = new PatientDetailsPage(driver);
+        FindPatientPage findPatientPage = new FindPatientPage(driver);
+        AttachmentsPage attachmentsPage = new AttachmentsPage(driver);
+
         loginPage.launchApplication("https://o2.openmrs.org/openmrs/login.htm");
 
         if (loginPage.verifyPageTitle("Login")) {
@@ -28,6 +31,52 @@ public class OpenMrsTestNew2 {
                             if (patientDetailsPage.verifyPatientDetails("Test, User")) {
                                 String patientId = patientDetailsPage.getPatientId();
                                 System.out.println(patientId);
+                                homePage.clickHomeIcon();
+                                if (homePage.verifyModuleTile("Find Patient Record")) {
+                                    homePage.clickModule("Find Patient Record");
+                                    if (registrationPage.verifyModulePage("Find Patient Record")) {
+                                        findPatientPage.searchPatient("Test User");
+                                        if (findPatientPage.verifySearchPatientRecord("Name", "Test User")) {
+                                            findPatientPage.clickSearchPatientTableFirstRecord();
+                                            if (patientDetailsPage.verifyPatientDetails("Test, User")) {
+                                                System.out.println("Find Patient details displayed");
+                                                patientDetailsPage.startVisits();
+                                                if (patientDetailsPage.verifyStartVisit()) {
+                                                    patientDetailsPage.clickAttachmentsButton();
+                                                    if (attachmentsPage.verifyAttachmentsPage()) {
+                                                        String uploadFilePath = System.getProperty("user.dir") + "\\src\\main\\resources\\UploadFiles\\UploadImage.png";
+                                                        attachmentsPage.addAttachments(uploadFilePath, "TestCaption");
+                                                        attachmentsPage.verifyUploadFileCaption("TestCaption");
+                                                        System.out.println("Upload file successful");
+                                                        homePage.clickHomeIcon();
+                                                        homePage.clickModule("Find Patient Record");
+                                                        findPatientPage.searchPatient("Test User");
+                                                        findPatientPage.clickSearchPatientTableFirstRecord();
+                                                        patientDetailsPage.deletePatient("Other");
+                                                        findPatientPage.searchPatient("Test User");
+                                                        if (findPatientPage.verifyNoRecordsFoundMessage()) {
+                                                            System.out.println("Delete Patient successful");
+                                                        } else {
+                                                            System.out.println("Delete Patient failed");
+                                                        }
+                                                    } else {
+                                                        System.out.println("Attachments Page is not displayed");
+                                                    }
+                                                } else {
+                                                    System.out.println("Start Visits filed");
+                                                }
+                                            } else {
+                                                System.out.println("Patient details not displayed properly");
+                                            }
+                                        } else {
+                                            System.out.println("Patient record is not displayed");
+                                        }
+                                    } else {
+                                        System.out.println("Find Patient Page is not displayed");
+                                    }
+                                } else {
+                                    System.out.println("Find Patient Record module not displayed");
+                                }
                             } else {
                                 System.out.println("Register patient failed");
                             }
@@ -47,7 +96,6 @@ public class OpenMrsTestNew2 {
         } else {
             System.out.println("Login Page is not displayed");
         }
-
 ////        driver.close();
     }
 }
