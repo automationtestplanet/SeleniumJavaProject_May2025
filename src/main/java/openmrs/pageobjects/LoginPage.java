@@ -55,6 +55,7 @@ public class LoginPage extends BasePage {
             setPassword(password);
             selectModule(moduleName);
             clickLogin();
+            Thread.sleep(2000);
         } catch (Exception e) {
             System.out.println("Exception occurred while login to OpenMrs Application: " + e.getMessage());
         }

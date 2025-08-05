@@ -63,4 +63,8 @@ public class BasePage {
 //        });
         return wait.until(driver -> driver.findElement(locator));
     }
+
+    public void closeTheBrowser(){
+        driver.close();
+    }
 }
