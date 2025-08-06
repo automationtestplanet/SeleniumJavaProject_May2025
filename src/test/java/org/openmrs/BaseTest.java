@@ -15,6 +15,7 @@ public class BaseTest {
     PatientDetailsPage patientDetailsPage;
     FindPatientPage findPatientPage;
     AttachmentsPage attachmentsPage;
+    Utils utils = new Utils(driver);
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuit() {

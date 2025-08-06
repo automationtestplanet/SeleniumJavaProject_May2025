@@ -15,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
 
     //    WebDriver driver = new ChromeDriver();
-    WebDriver driver;
+    static WebDriver driver;
 
     public BasePage(WebDriver driver) {
-        this.driver = driver;
+        BasePage.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
