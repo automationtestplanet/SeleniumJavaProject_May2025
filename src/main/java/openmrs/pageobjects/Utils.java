@@ -20,7 +20,7 @@ public class Utils extends BasePage {
     public static String captureScreenshot() {
         try {
             TakesScreenshot ts = (TakesScreenshot) driver;
-            String screenshotName = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()).replaceAll("[^0-9]", "") + ".jpg";
+            String screenshotName = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()).replaceAll("[^0-9]", "") + ".png";
             File scrrenshot = ts.getScreenshotAs(OutputType.FILE);
             String destinationPath = screenshotsFolderPath + screenshotName;
             FileUtils.copyFile(scrrenshot, new File(destinationPath));
